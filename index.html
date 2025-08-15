@@ -211,6 +211,7 @@
   /* Projects Section */
   .projects {
     padding: var(--section-padding);
+    position: relative;
   }
 
   .section-title {
@@ -219,11 +220,16 @@
     text-align: center;
   }
 
+  .projects-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
-    max-width: 1200px;
     margin: 0 auto;
   }
 
@@ -234,6 +240,7 @@
     box-shadow: var(--card-shadow);
     transition: var(--transition);
     border: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
   }
 
   .project-card:hover {
@@ -270,6 +277,101 @@
     margin: 0;
     font-size: 0.95rem;
     line-height: 1.5;
+  }
+
+  /* Lightbox Modal */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 0 0 8px 8px;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .lightbox-close:hover {
+    color: var(--accent3);
+    transform: scale(1.2);
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    transform: translateY(-50%);
+  }
+
+  .lightbox-arrow {
+    color: white;
+    font-size: 50px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    user-select: none;
+  }
+
+  .lightbox-arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--accent3);
   }
 
   /* About Section */
@@ -453,6 +555,10 @@
     .hero {
       padding-top: calc(var(--header-height) + 20px);
     }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 480px) {
@@ -476,9 +582,11 @@
     .hero p {
       font-size: 1rem;
     }
-    
-    .projects-grid {
-      grid-template-columns: 1fr;
+
+    .lightbox-arrow {
+      font-size: 30px;
+      width: 40px;
+      height: 40px;
     }
   }
 </style>
@@ -516,46 +624,62 @@
 
   <section id="projects" class="projects">
     <h2 class="section-title">Featured Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <img 
-          src="https://i.postimg.cc/w3GJWwTJ/apple.png" 
-          alt="Apple Clone" 
-          class="project-img loading"
-          loading="lazy"
-          onload="this.classList.add('loaded')"
-        >
-        <div class="project-info">
-          <h3>Apple Website Clone</h3>
-          <p>A pixel-perfect recreation of Apple's homepage with smooth animations.</p>
+    <div class="projects-container">
+      <div class="projects-grid" id="projectsGrid">
+        <div class="project-card" data-index="0">
+          <img 
+            src="https://i.postimg.cc/CLTtKN10/Screenshot-2025-08-15-195030.png" 
+            alt="Apple Clone" 
+            class="project-img loading"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          >
+          <div class="project-info">
+            <h3>Apple Website Clone</h3>
+            <p>Redesign of one of the world's best technology company - Apple</p>
+          </div>
         </div>
-      </div>
-      
-      <div class="project-card">
-        <img 
-          src="https://i.postimg.cc/8F4fLH07/kun-uz.png" 
-          alt="Kun.uz Clone" 
-          class="project-img loading"
-          loading="lazy"
-          onload="this.classList.add('loaded')"
-        >
-        <div class="project-info">
-          <h3>Kun.uz News Portal</h3>
-          <p>Modern redesign of Uzbekistan's popular news website.</p>
+        
+        <div class="project-card" data-index="1">
+          <img 
+            src="https://i.postimg.cc/Mp0W9Hck/Screenshot-2025-08-15-195120.png" 
+            alt="Kun.uz Clone" 
+            class="project-img loading"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          >
+          <div class="project-info">
+            <h3>Kun.uz News Clone</h3>
+            <p>Modern redesign of Uzbekistan's popular news website.</p>
+          </div>
         </div>
-      </div>
-      
-      <div class="project-card">
-        <img 
-          src="https://i.postimg.cc/5YtYgChn/save-the-earth.png" 
-          alt="Eco Project" 
-          class="project-img loading"
-          loading="lazy"
-          onload="this.classList.add('loaded')"
-        >
-        <div class="project-info">
-          <h3>Save The Earth</h3>
-          <p>Interactive website about environmental conservation with data visualization.</p>
+        
+        <div class="project-card" data-index="2">
+          <img 
+            src="https://i.postimg.cc/k595CKrX/Screenshot-2025-08-15-195059.png" 
+            alt="Eco Project" 
+            class="project-img loading"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          >
+          <div class="project-info">
+            <h3>Save The Earth</h3>
+            <p>Beautiful website about environment and changes we can make.</p>
+          </div>
+        </div>
+
+        <div class="project-card" data-index="3">
+          <img 
+            src="https://i.postimg.cc/0jkdFbnz/Screenshot-2025-08-15-194512.png" 
+            alt="Newuu.uz Clone" 
+            class="project-img loading"
+            loading="lazy"
+            onload="this.classList.add('loaded')"
+          >
+          <div class="project-info">
+            <h3>New Uzbekistan university Clone</h3>
+            <p>Modern redesign of Uzbekistan's best university.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -563,13 +687,6 @@
 
   <section id="about" class="about">
     <div class="about-content">
-      <img 
-        src="https://i.postimg.cc/XrwCY3Kc/profile.png" 
-        alt="Aziz" 
-        class="about-img loading"
-        loading="lazy"
-        onload="this.classList.add('loaded')"
-      >
       <div class="about-text">
         <h2>About Me</h2>
         <p>Hi, I'm Aziz! I'm a passionate developer with expertise in frontend technologies and UI design. I love creating digital experiences that are both beautiful and functional.</p>
@@ -616,6 +733,19 @@
     </div>
   </section>
 </main>
+
+<!-- Lightbox Modal -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" id="lightboxClose">&times;</span>
+  <div class="lightbox-content">
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+  <div class="lightbox-nav">
+    <span class="lightbox-arrow" id="prevBtn">❮</span>
+    <span class="lightbox-arrow" id="nextBtn">❯</span>
+  </div>
+</div>
 
 <footer>
   <div class="social-links">
@@ -672,6 +802,89 @@
         });
       }
     });
+  });
+
+  // Lightbox Gallery
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const projectCards = document.querySelectorAll('.project-card');
+  
+  let currentImageIndex = 0;
+  const images = [];
+  const captions = [];
+  
+  // Prepare images and captions
+  projectCards.forEach((card, index) => {
+    const img = card.querySelector('img');
+    const title = card.querySelector('h3').textContent;
+    const description = card.querySelector('p').textContent;
+    
+    images.push(img.src);
+    captions.push(`${title} - ${description}`);
+    
+    card.addEventListener('click', () => {
+      currentImageIndex = index;
+      openLightbox();
+    });
+  });
+  
+  function openLightbox() {
+    lightbox.classList.add('active');
+    updateLightboxImage();
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
+  }
+  
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; // Re-enable scrolling
+  }
+  
+  function updateLightboxImage() {
+    lightboxImg.src = images[currentImageIndex];
+    lightboxCaption.textContent = captions[currentImageIndex];
+  }
+  
+  function showPrevImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    updateLightboxImage();
+  }
+  
+  function showNextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    updateLightboxImage();
+  }
+  
+  // Event listeners
+  lightboxClose.addEventListener('click', closeLightbox);
+  prevBtn.addEventListener('click', showPrevImage);
+  nextBtn.addEventListener('click', showNextImage);
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('active')) {
+      switch (e.key) {
+        case 'Escape':
+          closeLightbox();
+          break;
+        case 'ArrowLeft':
+          showPrevImage();
+          break;
+        case 'ArrowRight':
+          showNextImage();
+          break;
+      }
+    }
+  });
+  
+  // Close when clicking outside the image
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
   });
 
   // Image lazy loading fallback
