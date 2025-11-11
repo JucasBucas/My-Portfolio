@@ -1057,6 +1057,27 @@
                 height: 40px;
             }
         }
+
+        .services {
+            padding: var(--section-padding);
+            background: var(--card);
+        }
+
+        .services-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .services-content p {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 <body data-theme="dark">
@@ -1097,6 +1118,7 @@
         <a href="#home" class="active">Home</a>
         <a href="#projects">Projects</a>
         <a href="#about">About</a>
+        <a href="#services">Services</a>
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
         <button class="theme-toggle" id="themeToggle">🌓</button>
@@ -1393,6 +1415,19 @@
                     <span class="skill">Responsive Design</span>
                     <span class="skill">Problem Solving</span>
                 </div>
+            </div>
+        </div>
+    </section>
+
+        <section id="services" class="services">
+        <h2 class="section-title">My Services</h2>
+        <div class="services-container">
+            <div class="services-content">
+                <p>I offer professional web development and design services to bring your ideas to life. From responsive websites to custom web applications, I create digital solutions that meet your needs.</p>
+                <a href="https://jucasbucas.github.io/webcraft/" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i>
+                    View All Services
+                </a>
             </div>
         </div>
     </section>
@@ -1774,6 +1809,7 @@
 </body>
 
 </html>
+
 
 
 
